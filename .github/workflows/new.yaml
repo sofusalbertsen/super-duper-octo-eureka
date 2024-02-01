@@ -24,3 +24,8 @@ jobs:
       - run: echo 'deployed to [github](https://github.com)' >>  $GITHUB_STEP_SUMMARY
       - run: echo "::add-mask::Mona The Octocat"
       - run: echo "Mona The Octocat"
+  failed-job-only:
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo I failed
