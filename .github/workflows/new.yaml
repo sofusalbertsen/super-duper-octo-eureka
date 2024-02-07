@@ -5,27 +5,20 @@ jobs:
   first-job:
     runs-on: ubuntu-latest
     steps:
-      - name: hej 
-        run: echo hello world
-      - name: Dump GitHub context
-        run: echo '${{ toJSON(github)}}'
-      - name: Dump GitHub context
-        run: echo '${{ toJSON(runner)}}'
-      - name: run container
-        uses: docker://hello-world
-      - name: look at the os-release
-        run: cat /etc/os-release
-      - name: Group of log lines
-        run: |
-            echo "::group::My title"
-            echo "Inside group"
-            echo "::endgroup::"
-      - run: echo '### This is a part of the summary :rocket:' >>  $GITHUB_STEP_SUMMARY
-      - run: echo 'deployed to [github](https://github.com)' >>  $GITHUB_STEP_SUMMARY
-      - run: echo "::add-mask::Mona The Octocat"
-      - run: echo "Mona The Octocat"
-  failed-job-only:
-    if: failure()
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo I failed
+     - name: Dump GitHub context
+       run: echo '${{ toJSON(github)}}'
+
+     - name: Dump GitHub context
+       run: echo '${{ toJSON(runner)}}'
+     - run: |
+          echo "🎉 The job was triggered by event: ${{ github.event_name }}"
+          
+     - run: echo "Status ${{ job.status }}"
+
+     - name: run linting
+       uses: super-linter/super-linter/slim@v5 
+       env:
+         DEFAULT_BRANCH: main
+         # To report GitHub Actions status checks
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+         DISABLE_ERRORS: true 
