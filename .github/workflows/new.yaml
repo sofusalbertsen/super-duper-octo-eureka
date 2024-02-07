@@ -8,7 +8,7 @@ jobs:
      - name: Dump GitHub context
        run: echo '${{ toJSON(github)}}'
 
-     - name: Dump GitHub context
+     - name: Dump Runner context
        run: echo '${{ toJSON(runner)}}'
      - run: |
           echo "🎉 The job was triggered by event: ${{ github.event_name }}"
